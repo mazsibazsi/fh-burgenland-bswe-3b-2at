@@ -1,5 +1,6 @@
 package io.muehlbachler.fhburgenland.swm.examination.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,19 +26,37 @@ public class PersonServiceImpl implements PersonService {
     @Autowired
     private NoteService noteService;
 
+    /**
+     * @inheritDoc
+     * @return An {@link ArrayList} that contains all {@link Person}s.
+     */
     public List<Person> getAll() {
         return Lists.newArrayList(personRepository.findAll());
     }
 
+    /**
+     * @inheritDoc
+     * @return An {@link Optional} that potentially contains a single {@link Person} instance.
+     */
     public Optional<Person> get(String id) {
         return personRepository.findById(id);
     }
 
+    /**
+     * @inheritDoc
+     * Saves the {@link Person} to the repository.
+     * @return An {@link Optional} that potentially contains a single {@link Person} instance.
+     */
     @Override
     public Person create(Person person) {
         return personRepository.save(person);
     }
 
+    /**
+     * @inheritDoc
+     * It returns only, if either the firstName or lastName is given.
+     * Otherwise, it returns a new empty {@link ArrayList}
+     */
     @Override
     public List<Person> findByName(String firstName, String lastName) {
         if (firstName.isEmpty() && !lastName.isEmpty()) {
@@ -48,6 +67,10 @@ public class PersonServiceImpl implements PersonService {
         return Lists.newArrayList();
     }
 
+    /**
+     * @inheritDoc
+     * Gets the {@link Person} and sets the person field of {@link Note} to said Person.
+     */
     @Override
     public Optional<Note> createNote(String personId, Note note) {
         return get(personId).map((Person person) -> {
