@@ -22,26 +22,55 @@ public class PersonController {
     @Autowired
     private PersonService personService;
 
+    /**
+     * This method returns all {@link Person}s in the repository as a {@link List}.
+     * @return A {@link List} of {@link Person}s. The list can be empty.
+     */
     @GetMapping("/")
     public List<Person> list() {
         return personService.getAll();
     }
 
+    /**
+     * This method returns a certain {@link Person} in the repository that matches the ID in the parameter.
+     * @param id {@link String} The unique ID of the person queried. Comes from the path variable 'id' with the
+     *                         GET method.
+     * @return A {@link List} of {@link Person}s. The list can be empty.
+     */
     @GetMapping("/{id}")
     public ResponseEntity<Person> get(@PathVariable String id) {
         return ResponseEntity.of(personService.get(id));
     }
 
+    /**
+     * Creates and saves a {@link Person} to the repository, that comes in through the Body of a POST request.
+     * @param person {@link Person} Comes through the Body of a POST request.
+     * @return Returns the created and saved {@link Person}.
+     */
     @PostMapping("/")
     public Person create(@RequestBody Person person) {
         return personService.create(person);
     }
 
+    /**
+     * This method finds the person based on the incoming firstName and/or lastName from the parameters.
+     * @param firstName {@link String} The first name of a {@link Person}. Comes in through the query string of a
+     *                                GET request.
+     * @param lastName {@link String} The last name of a {@link Person}. Comes in through the query string of a
+     *      *                         GET request.
+     * @return A {@link List} of {@link Person}s. The list can be empty if no match is found.
+     */
     @GetMapping("/query")
     public List<Person> query(@RequestParam("firstName") String firstName, @RequestParam("lastName") String lastName) {
         return personService.findByName(firstName, lastName);
     }
 
+    /**
+     * Creates and saves a note under a {@link Person}'s unique ID.
+     * @param id The unique identifier of a {@link Person}. Comes from the path variable of the POST request.
+     * @param note A {@link Note} that is received from the Body of the POST request.
+     * @return A {@link ResponseEntity} that contains the saved {@link Note}.
+     */
     @PostMapping("/{id}/note")
     public ResponseEntity<Note> createNote(@PathVariable String id, @RequestBody Note note) {
         return ResponseEntity.of(personService.createNote(id, note));
