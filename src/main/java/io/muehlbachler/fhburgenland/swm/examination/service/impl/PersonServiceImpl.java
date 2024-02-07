@@ -54,17 +54,18 @@ public class PersonServiceImpl implements PersonService {
 
     /**
      * @inheritDoc
-     * It returns only, if either the firstName or lastName is given.
-     * Otherwise, it returns a new empty {@link ArrayList}
+     * It returns a {@link List}, if either the firstName or lastName is given.
+     * If both names are given, it returns a {@link List} of persons with matching first and last names.
+     * If no person is found, it returns an empty list.
      */
     @Override
     public List<Person> findByName(String firstName, String lastName) {
-        if (firstName.isEmpty() && !lastName.isEmpty()) {
-            return personRepository.findByFirstName(lastName);
-        } else if (lastName.isEmpty() && !firstName.isEmpty()) {
-            return personRepository.findByLastName(firstName);
+        if (!firstName.isEmpty() && lastName.isEmpty()) {
+            return personRepository.findByFirstName(firstName);
+        } else if (!lastName.isEmpty() && firstName.isEmpty()) {
+            return personRepository.findByLastName(lastName);
         }
-        return Lists.newArrayList();
+        return personRepository.findByFirstNameAndLastName(firstName, lastName);
     }
 
     /**
