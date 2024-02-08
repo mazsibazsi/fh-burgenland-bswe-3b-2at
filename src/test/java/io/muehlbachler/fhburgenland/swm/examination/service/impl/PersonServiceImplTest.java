@@ -1,8 +1,9 @@
 package io.muehlbachler.fhburgenland.swm.examination.service.impl;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.mock;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.mockito.Mockito.times;
 
 import java.util.List;
@@ -23,8 +24,9 @@ import io.muehlbachler.fhburgenland.swm.examination.repository.PersonRepository;
 import io.muehlbachler.fhburgenland.swm.examination.service.NoteService;
 import io.muehlbachler.fhburgenland.swm.examination.service.PersonService;
 
-import javax.swing.text.html.Option;
-
+/**
+ * Unit tests for the implementation of the PersonService.
+ */
 @ExtendWith(MockitoExtension.class)
 public class PersonServiceImplTest {
     @Mock
@@ -88,8 +90,12 @@ public class PersonServiceImplTest {
         Mockito.when(personRepository.save(person)).thenReturn(person);
 
         Person returnedPerson = personService.create(person);
-        assertEquals(returnedPerson.getFirstName(), person.getFirstName(), "firstName should be Jane");
-        assertEquals(returnedPerson.getLastName(), person.getLastName(), "lastName should be Doe");
+        assertEquals(
+                returnedPerson.getFirstName(),
+                person.getFirstName(), "firstName should be Jane");
+        assertEquals(
+                returnedPerson.getLastName(),
+                person.getLastName(), "lastName should be Doe");
         Mockito.verify(personRepository, times(1)).save(person);
     }
 
@@ -142,7 +148,6 @@ public class PersonServiceImplTest {
                 .thenReturn(
                         List.of(marySue)
                 );
-
         List<Person> persons = personService.findByName("Mary", "Sue");
 
         assertEquals(1, persons.size());
@@ -199,12 +204,21 @@ public class PersonServiceImplTest {
      */
     @Test
     void testGetAll() {
-        Person johnDoe = new Person("1", "John", "Doe", Lists.newArrayList());
-        Person janeDoe = new Person("2", "Jane", "Doe", Lists.newArrayList());
-        Person marySue = new Person("3", "Mary", "Sue", Lists.newArrayList());
-        Person barryAllen = new Person("4", "Barry", "Allen", Lists.newArrayList());
+        Person johnDoe = new Person(
+                "1", "John", "Doe", Lists.newArrayList()
+        );
+        Person janeDoe = new Person(
+                "2", "Jane", "Doe", Lists.newArrayList()
+        );
+        Person marySue = new Person(
+                "3", "Mary", "Sue", Lists.newArrayList()
+        );
+        Person barryAllen = new Person(
+                "4", "Barry", "Allen", Lists.newArrayList()
+        );
 
-        Mockito.when((personRepository.findAll())).thenReturn(List.of(johnDoe, janeDoe, marySue, barryAllen));
+        Mockito.when((personRepository.findAll()))
+               .thenReturn(List.of(johnDoe, janeDoe, marySue, barryAllen));
 
         List<Person> persons = personService.getAll();
 
