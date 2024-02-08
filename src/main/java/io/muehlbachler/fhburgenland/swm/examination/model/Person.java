@@ -15,6 +15,9 @@ import lombok.Setter;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 
+/**
+ * The model of a person in the database.
+ */
 @Getter
 @Setter
 @NoArgsConstructor
