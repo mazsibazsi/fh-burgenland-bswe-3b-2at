@@ -12,6 +12,9 @@ import io.muehlbachler.fhburgenland.swm.examination.service.NoteService;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
+/**
+ * This class is a concrete implementation of the NoteService interface.
+ */
 @NoArgsConstructor
 @AllArgsConstructor
 @Service
@@ -20,8 +23,9 @@ public class NoteServiceImpl implements NoteService {
     private NoteRepository noteRepository;
 
     /**
-     * @inheritDocs
      * Returns the note from the repository.
+     *
+     * @inheritDocs
      */
     @Override
     public Optional<Note> get(String id) {
@@ -29,8 +33,9 @@ public class NoteServiceImpl implements NoteService {
     }
 
     /**
-     * @inheritDocs
      * Saves the {@link Note} to the repository.
+     *
+     * @inheritDocs
      */
     @Override
     public Note create(Note note) {
@@ -38,8 +43,10 @@ public class NoteServiceImpl implements NoteService {
     }
 
     /**
+     * Finds the {@link Note} from the repository,
+     * that contains the queried text in the parameters.
+     *
      * @inheritDocs
-     * Finds the {@link Note} from the repository, that contains the queried text in the parameters.
      */
     @Override
     public List<Note> queryByContent(String query) {

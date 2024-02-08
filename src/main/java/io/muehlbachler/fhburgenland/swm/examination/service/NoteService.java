@@ -5,10 +5,15 @@ import java.util.Optional;
 
 import io.muehlbachler.fhburgenland.swm.examination.model.Note;
 
+/**
+ * This class represents the note service interface,
+ * that describes what methods must be implemented by the service.
+ */
 public interface NoteService {
 
     /**
      * Returns a {@link Note} based on the given ID.
+     *
      * @param id {@link String} The ID of a Note.
      * @return An {@link Optional} of a {@link Note}. Can be null.
      */
@@ -16,6 +21,7 @@ public interface NoteService {
 
     /**
      * Creates a {@link Note} instance, and returns it.
+     *
      * @param note {@link Note}
      * @return A {@link Note} instance.
      */
@@ -23,6 +29,7 @@ public interface NoteService {
 
     /**
      * Returns a {@link List} of {@link Note}s, which has its contents matching the queried string.
+     *
      * @param query {@link String} A string of characters to be searched.
      * @return A {@link List} of {@link Note}s. Can be an empty list.
      */

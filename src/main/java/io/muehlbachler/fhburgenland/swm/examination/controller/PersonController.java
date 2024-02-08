@@ -16,14 +16,23 @@ import io.muehlbachler.fhburgenland.swm.examination.model.Note;
 import io.muehlbachler.fhburgenland.swm.examination.model.Person;
 import io.muehlbachler.fhburgenland.swm.examination.service.PersonService;
 
+/**
+ * The controller, responsible for handling the API calls to /person.
+ */
 @RestController
 @RequestMapping("person")
 public class PersonController {
+
+    /**
+     * The service for persisting changes to the {@link Person}s.
+     */
     @Autowired
     private PersonService personService;
 
+
     /**
-     * This method returns all {@link Person}s in the repository as a {@link List}.
+     * Returns all {@link Person}s in the repository as a {@link List}.
+     *
      * @return A {@link List} of {@link Person}s. The list can be empty.
      */
     @GetMapping("/")
@@ -32,9 +41,11 @@ public class PersonController {
     }
 
     /**
-     * This method returns a certain {@link Person} in the repository that matches the ID in the parameter.
-     * @param id {@link String} The unique ID of the person queried. Comes from the path variable 'id' with the
-     *                         GET method.
+     * Returns a certain {@link Person} in the repository that
+     * matches the ID in the parameter.
+     *
+     * @param id {@link String} The unique ID of the person queried.
+     *                         Comes from the path variable 'id' with the GET method.
      * @return A {@link List} of {@link Person}s. The list can be empty.
      */
     @GetMapping("/{id}")
@@ -43,7 +54,9 @@ public class PersonController {
     }
 
     /**
-     * Creates and saves a {@link Person} to the repository, that comes in through the Body of a POST request.
+     * Creates and saves a {@link Person} to the repository, that comes in through
+     * the Body of a POST request.
+     *
      * @param person {@link Person} Comes through the Body of a POST request.
      * @return Returns the created and saved {@link Person}.
      */
@@ -53,21 +66,26 @@ public class PersonController {
     }
 
     /**
-     * This method finds the person based on the incoming firstName and/or lastName from the parameters.
-     * @param firstName {@link String} The first name of a {@link Person}. Comes in through the query string of a
-     *                                GET request.
-     * @param lastName {@link String} The last name of a {@link Person}. Comes in through the query string of a
-     *      *                         GET request.
+     * Finds the person based on the incoming
+     * firstName and/or lastName from the parameters.
+     *
+     * @param firstName {@link String} The first name of a {@link Person}.
+     *                                Comes in through the query string of a GET request.
+     * @param lastName {@link String} The last name of a {@link Person}.
+     *                               Comes in through the query string of a GET request.
      * @return A {@link List} of {@link Person}s. The list can be empty if no match is found.
      */
     @GetMapping("/query")
-    public List<Person> query(@RequestParam("firstName") String firstName, @RequestParam("lastName") String lastName) {
+    public List<Person> query(@RequestParam("firstName") String firstName,
+                              @RequestParam("lastName") String lastName) {
         return personService.findByName(firstName, lastName);
     }
 
     /**
      * Creates and saves a note under a {@link Person}'s unique ID.
-     * @param id The unique identifier of a {@link Person}. Comes from the path variable of the POST request.
+     *
+     * @param id The unique identifier of a {@link Person}.
+     *           Comes from the path variable of the POST request.
      * @param note A {@link Note} that is received from the Body of the POST request.
      * @return A {@link ResponseEntity} that contains the saved {@link Note}.
      */
