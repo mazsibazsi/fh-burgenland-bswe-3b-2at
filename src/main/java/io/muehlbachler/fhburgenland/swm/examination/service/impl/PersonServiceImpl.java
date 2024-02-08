@@ -17,16 +17,29 @@ import io.muehlbachler.fhburgenland.swm.examination.service.PersonService;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
+/**
+ * This class is a concrete implementation of the PersonService interface.
+ */
 @NoArgsConstructor
 @AllArgsConstructor
 @Service
 public class PersonServiceImpl implements PersonService {
+
+    /**
+     * The repository, that persists the changes in the database.
+     */
     @Autowired
     private PersonRepository personRepository;
+
+    /**
+     * The service, which handles the notes.
+     */
     @Autowired
     private NoteService noteService;
 
     /**
+     * Returns a new {@link ArrayList} of {@link Person}s from the repo.
+     *
      * @inheritDoc
      * @return An {@link ArrayList} that contains all {@link Person}s.
      */
@@ -35,6 +48,8 @@ public class PersonServiceImpl implements PersonService {
     }
 
     /**
+     * Returns optionally a {@link Person} from the repo, if it exists.
+     *
      * @inheritDoc
      * @return An {@link Optional} that potentially contains a single {@link Person} instance.
      */
@@ -43,8 +58,9 @@ public class PersonServiceImpl implements PersonService {
     }
 
     /**
+     * Creates and persists a {@link Person} into the repository.
+     *
      * @inheritDoc
-     * Saves the {@link Person} to the repository.
      * @return An {@link Optional} that potentially contains a single {@link Person} instance.
      */
     @Override
@@ -53,10 +69,11 @@ public class PersonServiceImpl implements PersonService {
     }
 
     /**
-     * @inheritDoc
      * It returns a {@link List}, if either the firstName or lastName is given.
-     * If both names are given, it returns a {@link List} of persons with matching first and last names.
+     * Given names, it returns a {@link List} of persons with matching names.
      * If no person is found, it returns an empty list.
+     *
+     * @inheritDoc
      */
     @Override
     public List<Person> findByName(String firstName, String lastName) {
@@ -69,8 +86,9 @@ public class PersonServiceImpl implements PersonService {
     }
 
     /**
-     * @inheritDoc
      * Gets the {@link Person} and sets the person field of {@link Note} to said Person.
+     *
+     * @inheritDoc
      */
     @Override
     public Optional<Note> createNote(String personId, Note note) {
