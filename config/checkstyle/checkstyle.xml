@@ -47,7 +47,7 @@
   <module name="TreeWalker">
     <module name="MissingOverride"/>
     <module name="ClassMemberImpliedModifier" />
-    <module name="InterfaceMemberImpliedModifier"/>
+    <!--module name="InterfaceMemberImpliedModifier"/-->
     <module name="ModifierOrder"/>
     <module name="RedundantModifier"/>
     <module name="OuterTypeFilename"/>
