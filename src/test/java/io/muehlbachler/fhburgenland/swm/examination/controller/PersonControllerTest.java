@@ -62,7 +62,7 @@ public class PersonControllerTest {
 
 
     /**
-     * Submittin {@link Person} test.
+     * Submitting {@link Person} test.
      */
     @Test
     void testCreate() {
