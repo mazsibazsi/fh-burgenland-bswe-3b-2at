@@ -18,6 +18,10 @@ configurations {
 	}
 }
 
+checkstyle {
+	maxWarnings = 0
+}
+
 repositories {
 	mavenCentral()
 }
