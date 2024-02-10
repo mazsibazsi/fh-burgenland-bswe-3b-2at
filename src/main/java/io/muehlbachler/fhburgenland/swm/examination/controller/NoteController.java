@@ -25,6 +25,7 @@ public class NoteController {
     /**
      * Returns a response with a {@link Note}, that has the matching ID given in the
      * parameters.
+     *
      * @param id {@link String} The ID of the Note that is queried.
      *                         The parameter comes from the GET mappings' path variable.
      * @return A {@link Note} wrapped inside a {@link ResponseEntity}
