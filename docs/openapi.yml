@@ -1,0 +1,174 @@
+openapi: 3.0.0
+info:
+  title: Examination Note API
+  description: API for managing persons and their notes
+  version: "1.0"
+servers:
+  - url: 'http://localhost:8080'
+paths:
+  /person/:
+    get:
+      tags:
+        - person
+      summary: List all persons
+      responses:
+        '200':
+          description: A list of persons
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Person'
+    post:
+      tags:
+        - person
+      summary: Create a new person
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Person'
+      responses:
+        '200':
+          description: The created person
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Person'
+  /person/{id}:
+    get:
+      tags:
+        - person
+      summary: Get a person by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: A person object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Person'
+  /person/{id}/note:
+    post:
+      tags:
+        - person
+      summary: Create a note for a person
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Note'
+      responses:
+        '200':
+          description: The saved note
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Note'
+  /person/query:
+    get:
+      tags:
+        - person
+      summary: Query persons by name
+      parameters:
+        - name: firstName
+          in: query
+          schema:
+            type: string
+        - name: lastName
+          in: query
+          schema:
+            type: string
+      responses:
+        '200':
+          description: A list of persons matching the query
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Person'
+  /note/{id}:
+    get:
+      tags:
+        - note
+      summary: Get a note by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: A note object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Note'
+  /note/query:
+    get:
+      tags:
+        - note
+      summary: Query notes by content
+      parameters:
+        - name: query
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: A list of notes containing the query text
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Note'
+components:
+  schemas:
+    Person:
+      type: object
+      properties:
+        id:
+          type: string
+          description: "The unique identifier of the person."
+        firstName:
+          type: string
+          description: "The first name of the person."
+        lastName:
+          type: string
+          description: "The last name of the person."
+        notes:
+          type: array
+          items:
+            $ref: '#/components/schemas/Note'
+          description: "A list of notes associated with the person."
+    Note:
+      type: object
+      properties:
+        id:
+          type: string
+          description: "The unique identifier of the note."
+        person:
+          type: string
+          description: "The ID of the person, that owns the note."
+        content:
+          type: string
+          description: "The content of the note."
+
