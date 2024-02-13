@@ -9,8 +9,20 @@ on:
 
 jobs:
 
-  test:
+  conform:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
 
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+      - name: Check for Commit Validity
+        run: ./conform enforce
+
+  test:
+    needs: conform
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -30,7 +42,7 @@ jobs:
         run: ./gradlew test
 
   openapi-validate:
-
+    needs: conform
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -42,11 +54,8 @@ jobs:
         with:
           definition-file: docs/openapi.yml
 
-
-
-
   checkstyle:
-
+    needs: conform
     runs-on: ubuntu-latest
     permissions:
       contents: write
