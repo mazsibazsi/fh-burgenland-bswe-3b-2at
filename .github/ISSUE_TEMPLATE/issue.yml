@@ -6,7 +6,7 @@ labels:
   - triage
   - help wanted
 assignees:
-  - muhlba91
+  - mazsibazsi
 body:
   - type: markdown
     attributes:
