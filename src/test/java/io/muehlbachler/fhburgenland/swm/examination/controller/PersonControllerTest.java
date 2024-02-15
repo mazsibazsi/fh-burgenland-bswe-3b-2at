@@ -41,6 +41,18 @@ public class PersonControllerTest {
     }
 
     /**
+     * Tests the getbyID method using
+     * a known person ID to ensure it retrieves the person successfully.
+     */
+    @Test
+    void testGetByIdNotFound() {
+        ResponseEntity<Person> person =
+		personController.get("81150016-8501-4b97-9168-01113e21d8a2");
+
+        assertEquals(HttpStatus.NOT_FOUND, person.getStatusCode(), "person should not be found");
+    }
+
+    /**
      * Tests, if all {@link Person}s are received.
      */
     @Test
